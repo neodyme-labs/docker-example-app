@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Your Notes</h1>
+<form method="post">
+    <label for="content">New Note:</label>
+    <input type="text" id="content" name="content" required><br><br>
+    <input type="submit" value="Add Note">
+</form>
+<ul>
+    {% for note in notes %}
+    <li>{{ note.content }} <a href="{{ url_for('delete', note_id=note.id) }}">Delete</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
