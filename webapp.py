@@ -13,8 +13,13 @@ db_user = os.getenv("DB_USER", "user")
 db_password = os.getenv("DB_PASSWORD", "pw")
 db_name = os.getenv("DB_NAME", "notes")
 
+secret = os.getenv("SESSION_SECRET", None)
+if secret is None:
+    print("ERROR: environment variable 'SESSION_SECRET' not set!")
+    exit(1)
+
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'Secret123'
+app.config['SECRET_KEY'] = secret
 app.config['SQLALCHEMY_DATABASE_URI'] = f'postgresql://{db_user}:{db_password}@{db_host}/{db_name}'
 db = SQLAlchemy(app)
 
